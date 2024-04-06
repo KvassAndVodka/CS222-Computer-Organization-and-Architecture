@@ -29,10 +29,10 @@ main:
 	
 	move $s1, $v0		#Store Value2 to s1
 
-	jal findSum
+	jal findSum		
 	jal printS0
 
-	jal findDifference
+	jal findDifference	
 	jal printS1
 	
 	jal findProduct
@@ -46,16 +46,17 @@ main:
 	
 	jal prevValue2
 	jal printS1
+	
 	#exit program
 	li $v0, 10
 	syscall
 
 findSum:
-	addi $sp, $sp -4
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
+	addi $sp, $sp -4	#Allocate space for stack pointer
+	sw $s0, 0($sp)		#Store word s0 to sp 0
+	sw $s1, 4($sp)		#Store word s1 to sp 4
 	
-	add $s0, $s0, $s1
+	add $s0, $s0, $s1	#Calculate sum
 	
 	li $v0, 4
 	la $a0, showSum
@@ -64,7 +65,7 @@ findSum:
 	jr $ra
 
 findDifference:
-	sub $s1, $s0, $s1
+	sub $s1, $s0, $s1	#Calculate difference
 	
 	li $v0, 4
 	la $a0, showDifference
@@ -73,7 +74,7 @@ findDifference:
 	jr $ra
 
 findProduct:
-	mul $s1, $s0, $s1
+	mul $s1, $s0, $s1	#Calculate Product
 	
 	li $v0, 4
 	la $a0, showProduct
@@ -82,16 +83,16 @@ findProduct:
 	jr $ra
 
 findQuotient:
-	div $s0, $s1, $s0
+	div $s0, $s1, $s0	#Calculate quotient
 	
-	li $v0, 4
+	li $v0, 4		
 	la $a0, showQuotient
 	syscall
 	
 	jr $ra
 	
 prevValue1: 
-	lw $s0, 0($sp)
+	lw $s0, 0($sp)		#Load original value of s0
 	
 	li $v0, 4
 	la $a0, showPrevVal
@@ -100,7 +101,7 @@ prevValue1:
 	jr $ra
 	
 prevValue2:
-	lw $s1, 4($sp)
+	lw $s1, 4($sp)		#Load original value of s1
 	
 	li $v0, 4
 	la $a0, showPrevVal
